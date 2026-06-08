@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-luxury-gold: #D4AF37;
+  --color-luxury-charcoal: #1A1A1A;
+  --color-luxury-sand: #F9F8F6;
+  --color-luxury-warmgrey: #7E756B;
+  --color-luxury-beige: #EAE6DF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-luxury-sand);
+  color: var(--color-luxury-charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  outline-offset: 3px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-luxury-gold) 70%, transparent);
+}
+
+img {
+  max-width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-luxury-sand);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-luxury-warmgrey);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-luxury-charcoal);
+}
+
+/* Selection aesthetics */
+::selection {
+  background-color: var(--color-luxury-beige);
+  color: var(--color-luxury-charcoal);
+}
+
+@layer components {
+  .page-shell {
+    @apply bg-[#F9F8F6] px-4 py-10 sm:px-6 lg:px-8;
+  }
+
+  .content-shell {
+    @apply mx-auto max-w-7xl;
+  }
+
+  .section-heading {
+    @apply font-serif text-3xl font-light uppercase leading-tight tracking-[0.08em] text-[#1A1A1A] sm:text-4xl;
+  }
+
+  .eyebrow {
+    @apply block text-[10px] font-mono uppercase tracking-[0.22em] text-[#7E756B];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-sm bg-[#1A1A1A] px-5 py-3 text-center text-xs font-medium uppercase tracking-[0.16em] text-[#F9F8F6] transition-colors hover:bg-[#70675D] active:translate-y-px disabled:cursor-not-allowed disabled:bg-[#D8D2C8] disabled:text-[#7E756B];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-sm border border-[#1A1A1A] px-5 py-3 text-center text-xs font-medium uppercase tracking-[0.16em] text-[#1A1A1A] transition-colors hover:bg-[#1A1A1A] hover:text-[#F9F8F6] active:translate-y-px;
+  }
+
+  .panel {
+    @apply rounded-sm border border-[#EAE6DF] bg-white shadow-[0_18px_60px_rgba(26,26,26,0.045)];
+  }
+}

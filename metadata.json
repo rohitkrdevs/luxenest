@@ -1,0 +1,6 @@
+{
+  "name": "LuxeNest Workspace",
+  "description": "An editorial e-commerce experience centering quiet luxury furniture, solid woods, clean lines, and responsive white-glove custom checkouts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
