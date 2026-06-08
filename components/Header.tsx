@@ -38,11 +38,12 @@ export default function Header() {
 
  const navLinks = [
  { label: 'Collection', path: '/shop' },
- { label: 'Category Grid', path: '/category' },
+ { label: 'Categories', path: '/category' },
  { label: 'Curated Rooms', path: '/' },
  ];
 
  return (
+ <>
  <header className="sticky top-0 z-50 border-b border-[#EAE6DF] bg-[#F9F8F6]/95 shadow-[0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-xl transition-all duration-300">
  <div className="bg-[#1A1A1A] px-4 py-2 text-center text-[10px] font-mono uppercase tracking-[0.12em] text-[#F9F8F6] sm:text-[11px] sm:tracking-[0.18em]">
  <div className="mx-auto flex max-w-7xl items-center justify-center gap-2">
@@ -110,7 +111,7 @@ export default function Header() {
  onSubmit={handleSearchSubmit}
  className="absolute right-0 top-1/2 z-10 flex -translate-y-1/2 items-center rounded-sm border border-[#D8D2C8] bg-white px-3 py-2 shadow-[0_16px_45px_rgba(26,26,26,0.12)]"
  initial={{ width: 40, opacity: 0 }}
- animate={{ width: typeof window !== 'undefined' && window.innerWidth < 640 ? 224 : 288, opacity: 1 }}
+ animate={{ width: typeof window !== 'undefined' && window.innerWidth < 640 ? 200 : 288, opacity: 1 }}
  exit={{ width: 40, opacity: 0 }}
  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
  >
@@ -191,57 +192,93 @@ export default function Header() {
  </div>
  </div>
  </div>
-
- <AnimatePresence>
- {mobileMenuOpen && (
- <motion.div 
- initial={{ opacity: 0 }}
- animate={{ opacity: 1 }}
- exit={{ opacity: 0 }}
- transition={{ duration: 0.25 }}
- className="fixed inset-0 z-40 flex justify-end bg-[#1A1A1A]/35 pt-[104px] backdrop-blur-sm sm:pt-[112px] lg:hidden" 
- onClick={() => setMobileMenuOpen(false)}
- >
- <motion.div 
- initial={{ x: "100%" }}
- animate={{ x: 0 }}
- exit={{ x: "100%" }}
- transition={{ type: "spring", damping: 25, stiffness: 200 }}
- className="flex h-full w-full max-w-sm flex-col justify-between overflow-y-auto border-l border-[#EAE6DF] bg-[#F9F8F6] p-6 shadow-2xl" 
- onClick={(e) => e.stopPropagation()}
- >
- <div className="space-y-6 pt-2">
- <div className="flex flex-col gap-2">
- {navLinks.map((link) => (
- <Link
- key={link.label}
- href={link.path}
- onClick={() => setMobileMenuOpen(false)}
- className={`rounded-sm border px-4 py-3 text-left font-serif text-lg uppercase tracking-widest transition-colors ${
- pathname === link.path ? 'border-[#1A1A1A] bg-white text-[#1A1A1A]' : 'border-[#EAE6DF] text-[#7E756B] hover:border-[#C2BCAE] hover:bg-white'
- }`}
- >
- {link.label}
- </Link>
- ))}
- </div>
- </div>
-
- <div className="border-t border-[#EAE6DF] pt-6 space-y-4">
- <div className="flex items-center gap-2 text-xs font-mono text-[#7E756B]">
- <MapPin className="w-4 h-4 text-[#C2BCAE]" />
- <span>Showroom: Copenhagen & New York</span>
- </div>
- <p className="text-[10px] font-mono text-[#A89F91]">
- Need styling assistance? Call our design concierge line:
- <br />
- <span className="text-[#1A1A1A] font-medium font-sans text-xs">1-800-LUXENEST</span>
- </p>
- </div>
- </motion.div>
- </motion.div>
- )}
- </AnimatePresence>
  </header>
+
+  <AnimatePresence>
+  {mobileMenuOpen && (
+  <motion.div 
+  initial="initial"
+  animate="animate"
+  exit="exit"
+  variants={{
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.4, staggerChildren: 0.1 } },
+  exit: { opacity: 0, transition: { duration: 0.3, staggerChildren: 0.05, staggerDirection: -1 } }
+  }}
+  className="fixed inset-0 z-[60] flex flex-col bg-[#1A1A1A]/95 backdrop-blur-2xl px-6 py-6 lg:hidden"
+  >
+  <motion.div 
+  variants={{
+  initial: { y: -20, opacity: 0 },
+  animate: { y: 0, opacity: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+  exit: { y: -10, opacity: 0, transition: { duration: 0.2 } }
+  }} 
+  className="flex justify-between items-center mb-16 mt-2"
+  >
+  <Link href="/" onClick={() => setMobileMenuOpen(false)} className="group flex min-w-0 flex-col items-start text-left">
+  <span className="font-serif text-xl font-light uppercase tracking-[0.22em] text-[#F9F8F6] transition-opacity group-hover:opacity-80 sm:text-2xl">
+  LuxeNest
+  </span>
+  <span className="-mt-1 hidden text-[9px] font-mono uppercase tracking-[0.28em] text-[#A89F91] sm:block">
+  Quiet Luxury Living
+  </span>
+  </Link>
+  <button 
+  onClick={() => setMobileMenuOpen(false)}
+  className="p-2 -mr-2 text-[#F9F8F6] transition-transform hover:rotate-90 duration-300"
+  aria-label="Close menu"
+  >
+  <X className="w-8 h-8 font-light stroke-[1]" />
+  </button>
+  </motion.div>
+
+  <div className="flex-1 flex flex-col justify-center gap-8 mb-12">
+  {navLinks.map((link, index) => (
+  <motion.div 
+  key={link.label} 
+  variants={{
+  initial: { y: 20, opacity: 0 },
+  animate: { y: 0, opacity: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+  exit: { y: 10, opacity: 0, transition: { duration: 0.2 } }
+  }}
+  >
+  <Link
+  href={link.path}
+  onClick={() => setMobileMenuOpen(false)}
+  className={`group flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-left transition-colors duration-300 ${
+  pathname === link.path ? 'text-[#D4AF37]' : 'text-[#F9F8F6] hover:text-[#D4AF37]'
+  }`}
+  >
+  <span className="text-[10px] font-mono tracking-widest text-[#7E756B] group-hover:text-[#D4AF37] transition-colors">0{index + 1}</span>
+  <span className="font-serif text-4xl sm:text-5xl font-light uppercase tracking-widest">
+  {link.label}
+  </span>
+  </Link>
+  </motion.div>
+  ))}
+  </div>
+
+  <motion.div 
+  variants={{
+  initial: { y: 20, opacity: 0 },
+  animate: { y: 0, opacity: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
+  exit: { y: 10, opacity: 0, transition: { duration: 0.2 } }
+  }}
+  className="border-t border-[#333] pt-8 pb-4 space-y-4"
+  >
+  <div className="flex items-center gap-2 text-xs font-mono text-[#7E756B]">
+  <MapPin className="w-4 h-4 text-[#D4AF37]" />
+  <span>Showroom: Copenhagen & New York</span>
+  </div>
+  <p className="text-[10px] font-mono text-[#7E756B]">
+  Need styling assistance? Call our design concierge line:
+  <br />
+  <span className="text-[#F9F8F6] font-medium font-sans text-xs tracking-wider">1-800-LUXENEST</span>
+  </p>
+  </motion.div>
+  </motion.div>
+  )}
+  </AnimatePresence>
+ </>
  );
 }
